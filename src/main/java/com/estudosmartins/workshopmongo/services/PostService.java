@@ -22,4 +22,8 @@ public class PostService {
         Optional<Post> obj = postRepository.findById(id);
         return obj.get();
     }
+
+    public List<Post> findByTitle(String text){
+        return postRepository.findByTitleContaining(text);
+    }
 }
