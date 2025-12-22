@@ -3,6 +3,7 @@ package com.estudosmartins.workshopmongo.resources;
 import com.estudosmartins.workshopmongo.domain.Post;
 import com.estudosmartins.workshopmongo.domain.User;
 import com.estudosmartins.workshopmongo.dto.UserDTO;
+import com.estudosmartins.workshopmongo.resources.util.URL;
 import com.estudosmartins.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,14 @@ public class UserResource {
     public ResponseEntity<UserDTO> findById(@PathVariable String id){
         User obj = service.findById(id);
         return ResponseEntity.ok().body(new UserDTO(obj));
+    }
+
+    @GetMapping("/titlesearch")
+    public ResponseEntity<List<User>> findByName(@RequestParam(value = "text", defaultValue = "") String text){
+       //Decodificando parâmetro
+        text = URL.decodeParam(text);
+        List<User> list = service.findByName(text);
+        return ResponseEntity.ok().body(list);
     }
 
     @PostMapping

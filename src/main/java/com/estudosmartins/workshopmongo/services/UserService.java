@@ -48,5 +48,8 @@ public class UserService {
         return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
     }
 
+    public List<User> findByName(String text){
+        return repository.findByNameContainingIgnoreCase(text);
+    }
 
 }
